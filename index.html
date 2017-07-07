@@ -57,6 +57,17 @@
 <body>
 <!-- <p>Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
  -->
+ <input class="form-control" data-bind="value: Query, valueUpdate: 'keyup'" autocomplete="off">
+
+<h3>Search results:</h3>
+<ul data-bind="foreach: searchResults">
+  <li data-bind="text: title"></li>
+</ul>
+
+<h3>All items:</h3>
+<ul data-bind="foreach: people">
+  <li data-bind="text: title"></li>
+</ul>
 <ul data-bind="foreach: people">
     <p>Search: <input data-bind="textInput: searchArea" /></p>
 
