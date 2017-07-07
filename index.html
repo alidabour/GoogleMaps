@@ -61,7 +61,8 @@
 
 <h3>Search results:</h3>
 <ul data-bind="foreach: searchResults">
-  <li data-bind="text: title"></li>
+  <li data-bind="text: title,click: showPlace"></li>
+  <a href="Www.google.com">F</a>
 </ul>
 
 <h3>All items:</h3>
@@ -69,8 +70,8 @@
   <li data-bind="text: title"></li>
 </ul>
 <ul data-bind="foreach: people">
-    <p>Search: <input data-bind="textInput: searchArea" /></p>
-
+<!--     <p>Search: <input data-bind="textInput: searchArea" /></p>
+ -->
                 <!-- <a href='#' data-bind='click: addChild '>Add child</a> -->
 <ul data-bind="foreach: name">
 <li data-bind="text: $data"></li>
