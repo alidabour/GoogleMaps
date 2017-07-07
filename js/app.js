@@ -62,17 +62,17 @@ if (infowindow.marker != marker) {
       console.log(data.photos.photo[0].id);
       photo = data.photos.photo[0];
       infowindow.setContent('<img src='+'https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg'+' height="400" width="400">');
-        }else {
+    }else {
       infowindow.setContent('<div>'+"No photo found"+'</div');
 
-        }
-  infowindow.open(map, marker);
-    }).done(function(){console.log("Done");})
-    .fail(function(jqxhr, textStatus, error) {
-       var err = textStatus + ", " + error;
-    console.log( "Request Failed: " + err );
-    console.log( "error" );
-  })
+    }
+    infowindow.open(map, marker);
+  }).done(function(){console.log("Done");})
+  .fail(function(jqxhr, textStatus, error) {
+   var err = textStatus + ", " + error;
+   console.log( "Request Failed: " + err );
+   console.log( "error" );
+ })
   .always(function() {
     console.log( "complete" );
   });
@@ -87,12 +87,12 @@ if (infowindow.marker != marker) {
 // This function will loop through the markers array and display them all.
 function showListings() {
   var bounds = new google.maps.LatLngBounds();
-// Extend the boundaries of the map for each marker and display the marker
-for (var i = 0; i < markers.length; i++) {
-  markers[i].setMap(map);
-  bounds.extend(markers[i].position);
-}
-map.fitBounds(bounds);
+  // Extend the boundaries of the map for each marker and display the marker
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+    bounds.extend(markers[i].position);
+  }
+  map.fitBounds(bounds);
 }
 
 // This function will loop through the listings and hide them all.
@@ -110,99 +110,37 @@ var locations = [
 {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
 {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
-// var locations2= [];
-// locations2.push(locations[0]);
 
-// var placeModel = function(data){
-// 	up = this;
-// 	this.searchArea = ko.observable("");
-// 	this.name =  ko.observableArray([locations[0].title,locations[1].title,locations[2].title,locations[3].title,locations[4].title,locations[5].title]);
-// 	this.location = ko.observable(locations[0].location,locations[1].location,locations[2].location,locations[3].location,locations[4].location,locations[5].location);
-//   this.addChild = function() {
-//     this.name.push("hi");
-//   }.bind(this);
-//   // this.filteredItems = ko.computed(function() {
-//   //   var filter = this.filter().toLowerCase();
-//   //   if (!filter) {
-//   //     return up.name();
-//   //   } else {
-//   //     return ko.utils.arrayFilter(up.name(), function(item) {
-//   //       return ko.utils.stringStartsWith(item.name().toLowerCase(), filter);
-//   //     });
-//   //   }
-//   // }, placeModel);
-//   this.searchArea.subscribe(function(newValue){
-//     for(var i=0; i<locations.length;i++){
-//       if(locations[i].title.toLowerCase().startsWith(newValue.toLowerCase())){
-//        markers[i].setMap(map);
-//        up.name.push(locations[i].title);
-//      }
-//    }
-
-//    ko.utils.arrayForEach(up.name(), function(feature) {
-//     console.log(feature);
-//     for(var i=0; i<markers.length; i++){
-//       if (markers[i].title.toLowerCase().startsWith(newValue.toLowerCase())) {
-//         markers[i].setMap(map);
-//       }else{
-//         markers[i].setMap(null);
-//         up.name.remove(markers[i].title);
-//       }
-//     }
-//         // total += feature();
-//         // console.log(total);
-
-//       });
-//      //  console.log(newValue);
-//     	// console.log(up.name());
-//      //  console.log("Hi");
-
-//    });
-// }
 var filcker = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b92192ecb9bb119080e0cb812f88cf32&format=json&text=";
-// https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b92192ecb9bb119080e0cb812f88cf32&text="Baby"
 var newPlace =function(data){
   this.name= ko.observable(data.title);
   this.nameClicked= function(clickedData){
-    console.log("Click!");
-    console.log(clickedData.name());  
-  //   $.getJSON(filcker,function(data){
-  //     console.log(data.photos.photo[0].id);
-  //   }).done(function(){console.log("Done");})
-  //   .fail(function(jqxhr, textStatus, error) {
-  //      var err = textStatus + ", " + error;
-  //   console.log( "Request Failed: " + err );
-  //   console.log( "error" );
-  // })
-  // .always(function() {
-  //   console.log( "complete" );
-  // });
     for(var i=0; i<markers.length; i++){
-    if (markers[i].title.toLowerCase().startsWith(clickedData.name().toLowerCase())) {
-      markers[i].setMap(map);
-    }else{
-      markers[i].setMap(null);
+      if (markers[i].title.toLowerCase().startsWith(clickedData.name().toLowerCase())) {
+        markers[i].setMap(map);
+      }else{
+        markers[i].setMap(null);
+      }
     }
-
   }
-  }
-  // console.log(data);
-  // console.log("name");
-
 }
+$("#menu-toggle").click(function(e) {
+  e.preventDefault();
+  $("#wrapper").toggleClass("active");
+});
 
-var testModel = {
-	people:[new newPlace(locations[0]),
+var viewModel = {
+	places:[new newPlace(locations[0]),
   new newPlace(locations[1]),
   new newPlace(locations[2]),
   new newPlace(locations[3]),
   new newPlace(locations[4]),
   new newPlace(locations[5]) ]
 };
-testModel.Query = ko.observable('');
+viewModel.Query = ko.observable('');
 
-testModel.searchResults = ko.computed(function() {
-  var q = testModel.Query();
+viewModel.searchResults = ko.computed(function() {
+  var q = viewModel.Query();
   console.log(q);
   for(var i=0; i<markers.length; i++){
     if (markers[i].title.toLowerCase().indexOf(q.toLowerCase())>=0) {
@@ -211,10 +149,9 @@ testModel.searchResults = ko.computed(function() {
       markers[i].setMap(null);
     }
   }
-  return testModel.people.filter(function(i) {
-    console.log(i.name())
+  return viewModel.places.filter(function(i) {
     return i.name().toLowerCase().indexOf(q.toLowerCase()) >= 0;
   });
 });
 
-ko.applyBindings(testModel);
+ko.applyBindings(viewModel);
