@@ -81,63 +81,63 @@ function hideListings() {
   }
 }
 
-var locations = [
-{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-{title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-{title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-{title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-{title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
-var locations2= [];
-locations2.push(locations[0]);
+// var locations = [
+// {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+// {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+// {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+// {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+// {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+// {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+// ];
+// var locations2= [];
+// locations2.push(locations[0]);
 
-var placeModel = function(data){
-	up = this;
-	this.searchArea = ko.observable("");
-	this.name =  ko.observableArray([locations[0].title,locations[1].title,locations[2].title,locations[3].title,locations[4].title,locations[5].title]);
-	this.location = ko.observable(locations[0].location,locations[1].location,locations[2].location,locations[3].location,locations[4].location,locations[5].location);
-  this.addChild = function() {
-    this.name.push("hi");
-  }.bind(this);
-  // this.filteredItems = ko.computed(function() {
-  //   var filter = this.filter().toLowerCase();
-  //   if (!filter) {
-  //     return up.name();
-  //   } else {
-  //     return ko.utils.arrayFilter(up.name(), function(item) {
-  //       return ko.utils.stringStartsWith(item.name().toLowerCase(), filter);
-  //     });
-  //   }
-  // }, placeModel);
-  this.searchArea.subscribe(function(newValue){
-    for(var i=0; i<locations.length;i++){
-      if(locations[i].title.toLowerCase().startsWith(newValue.toLowerCase())){
-       markers[i].setMap(map);
-       up.name.push(locations[i].title);
-     }
-   }
+// var placeModel = function(data){
+// 	up = this;
+// 	this.searchArea = ko.observable("");
+// 	this.name =  ko.observableArray([locations[0].title,locations[1].title,locations[2].title,locations[3].title,locations[4].title,locations[5].title]);
+// 	this.location = ko.observable(locations[0].location,locations[1].location,locations[2].location,locations[3].location,locations[4].location,locations[5].location);
+//   this.addChild = function() {
+//     this.name.push("hi");
+//   }.bind(this);
+//   // this.filteredItems = ko.computed(function() {
+//   //   var filter = this.filter().toLowerCase();
+//   //   if (!filter) {
+//   //     return up.name();
+//   //   } else {
+//   //     return ko.utils.arrayFilter(up.name(), function(item) {
+//   //       return ko.utils.stringStartsWith(item.name().toLowerCase(), filter);
+//   //     });
+//   //   }
+//   // }, placeModel);
+//   this.searchArea.subscribe(function(newValue){
+//     for(var i=0; i<locations.length;i++){
+//       if(locations[i].title.toLowerCase().startsWith(newValue.toLowerCase())){
+//        markers[i].setMap(map);
+//        up.name.push(locations[i].title);
+//      }
+//    }
 
-   ko.utils.arrayForEach(up.name(), function(feature) {
-    console.log(feature);
-    for(var i=0; i<markers.length; i++){
-      if (markers[i].title.toLowerCase().startsWith(newValue.toLowerCase())) {
-        markers[i].setMap(map);
-      }else{
-        markers[i].setMap(null);
-        up.name.remove(markers[i].title);
-      }
-    }
-        // total += feature();
-        // console.log(total);
+//    ko.utils.arrayForEach(up.name(), function(feature) {
+//     console.log(feature);
+//     for(var i=0; i<markers.length; i++){
+//       if (markers[i].title.toLowerCase().startsWith(newValue.toLowerCase())) {
+//         markers[i].setMap(map);
+//       }else{
+//         markers[i].setMap(null);
+//         up.name.remove(markers[i].title);
+//       }
+//     }
+//         // total += feature();
+//         // console.log(total);
 
-      });
-     //  console.log(newValue);
-    	// console.log(up.name());
-     //  console.log("Hi");
+//       });
+//      //  console.log(newValue);
+//     	// console.log(up.name());
+//      //  console.log("Hi");
 
-   });
-}
+//    });
+// }
 
 
 
