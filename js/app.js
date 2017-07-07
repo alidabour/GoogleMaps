@@ -154,6 +154,14 @@ testModel.Query = ko.observable('');
 
 testModel.searchResults = ko.computed(function() {
     var q = testModel.Query();
+    console.log(q);
+    for(var i=0; i<markers.length; i++){
+      if (markers[i].title.toLowerCase().startsWith(q.toLowerCase())) {
+        markers[i].setMap(map);
+      }else{
+        markers[i].setMap(null);
+      }
+      }
     return testModel.people.filter(function(i) {
       return i.title.toLowerCase().indexOf(q) >= 0;
     });
