@@ -54,8 +54,29 @@ function populateInfoWindow(marker, infowindow) {
 // Check to make sure the infowindow is not already opened on this marker.
 if (infowindow.marker != marker) {
   infowindow.marker = marker;
-  infowindow.setContent('<div>' + marker.title + '</div>');
+  console.log("Xxx");
+  console.log(marker.title);  
+  $.getJSON(filcker+marker.title+"&jsoncallback=?",function(data){
+    var photo = null
+    if(data.photos.photo[0] != null){
+      console.log(data.photos.photo[0].id);
+      photo = data.photos.photo[0];
+      infowindow.setContent('<img src='+'https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg'+' height="400" width="400">');
+        }else {
+      infowindow.setContent('<div>'+"No photo found"+'</div');
+
+        }
   infowindow.open(map, marker);
+    }).done(function(){console.log("Done");})
+    .fail(function(jqxhr, textStatus, error) {
+       var err = textStatus + ", " + error;
+    console.log( "Request Failed: " + err );
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
+  
   // Make sure the marker property is cleared if the infowindow is closed.
   infowindow.addListener('closeclick', function() {
     infowindow.marker = null;
@@ -138,19 +159,31 @@ var locations = [
 
 //    });
 // }
-
-
+var filcker = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b92192ecb9bb119080e0cb812f88cf32&format=json&text=";
+// https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b92192ecb9bb119080e0cb812f88cf32&text="Baby"
 var newPlace =function(data){
   this.name= ko.observable(data.title);
   this.nameClicked= function(clickedData){
     console.log("Click!");
     console.log(clickedData.name());  
+  //   $.getJSON(filcker,function(data){
+  //     console.log(data.photos.photo[0].id);
+  //   }).done(function(){console.log("Done");})
+  //   .fail(function(jqxhr, textStatus, error) {
+  //      var err = textStatus + ", " + error;
+  //   console.log( "Request Failed: " + err );
+  //   console.log( "error" );
+  // })
+  // .always(function() {
+  //   console.log( "complete" );
+  // });
     for(var i=0; i<markers.length; i++){
     if (markers[i].title.toLowerCase().startsWith(clickedData.name().toLowerCase())) {
       markers[i].setMap(map);
     }else{
       markers[i].setMap(null);
     }
+
   }
   }
   // console.log(data);
@@ -172,14 +205,15 @@ testModel.searchResults = ko.computed(function() {
   var q = testModel.Query();
   console.log(q);
   for(var i=0; i<markers.length; i++){
-    if (markers[i].title.toLowerCase().startsWith(q.toLowerCase())) {
+    if (markers[i].title.toLowerCase().indexOf(q.toLowerCase())>=0) {
       markers[i].setMap(map);
     }else{
       markers[i].setMap(null);
     }
   }
   return testModel.people.filter(function(i) {
-    return i.name().toLowerCase().indexOf(q) >= 0;
+    console.log(i.name())
+    return i.name().toLowerCase().indexOf(q.toLowerCase()) >= 0;
   });
 });
 
