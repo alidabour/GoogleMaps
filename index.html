@@ -59,7 +59,7 @@
     #sidebar-wrapper {
       margin-left: -150px;
       left: 70px;
-      width: 150px;
+      width: 360px;
       background: #222;
       position: fixed;
       height: 100%;
@@ -70,10 +70,11 @@
     .sidebar-nav {
       display: block;
       float: left;
-      width: 150px;
+      width: 100%;
       list-style: none;
       margin: 0;
       padding: 0;
+      color: white;
     }
     #page-content-wrapper {
       padding-left: 0;
@@ -193,49 +194,30 @@
     </style>
   </head>
 
-  <body>
-<!-- <p>Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p>
--->
-<div id="wrapper" class="active">
-
-  <!-- Sidebar -->
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-    <ul id="sidebar_menu" class="sidebar-nav">
-     <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
-     <div class="container">
-  <div class="options-box">
-    <h1>Find Your New Home</h1>
-    <div>
-        <input class="form-control" data-bind="value: Query, valueUpdate: 'keyup'" autocomplete="off">
-      <ul data-bind="foreach: searchResults">
-        <li data-bind="text: name,click: nameClicked"></li>
+<body>
+  <div id="wrapper" class="active">
+    <div id="sidebar-wrapper">
+      <ul id="sidebar_menu" class="sidebar-nav">
+        <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+      </ul>
+      <h1 style="color: white">Find Your New Home</h1>
+      <input class="form-control" data-bind="value: Query, valueUpdate: 'keyup'" autocomplete="off" style="width: 80%">
+      <ul class="sidebar-nav" id="sidebar" data-bind="foreach: searchResults">
+        <li class="sidebar-brand" data-bind="text: name,click: nameClicked"></li>
       </ul>
     </div>
-  </div>
-</div>
-   </ul>
- </div>
 
- <!-- Page content -->
- <div id="page-content-wrapper">
-  <!-- Keep all page content within the page-content inset div! -->
-  <div class="page-content inset">
-    <div class="row">
-      <div id="map"></div>
-      <!-- <div class="col-md-12"> -->
-      <!-- <p class="well lead">An Experiment using the sidebar template from startbootstrap.com which I integrated in my website (<a href="http://animeshmanglik.name">animeshmanglik.name</a>)</p> -->
-      <!-- <p class="well lead">Click on the Menu to Toggle Sidebar . Hope you enjoy it!</p>  -->
+    <div id="page-content-wrapper">
+      <div class="page-content inset">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
-
-</div>
-
-
-</ul>
-</div>
+</body>
 <script async defer
 src=
 "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLoyjiswJ4N87HoL1ED_XQ2MUVyfOe9BE&v=3&callback=initMap">

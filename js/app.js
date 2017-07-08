@@ -43,8 +43,6 @@ for (var i = 0; i < locations.length; i++) {
     populateInfoWindow(this, largeInfowindow);
   });
 }
-document.getElementById('show-listings').addEventListener('click', showListings);
-document.getElementById('hide-listings').addEventListener('click', hideListings);
 }
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
